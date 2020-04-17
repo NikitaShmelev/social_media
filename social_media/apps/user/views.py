@@ -1,22 +1,43 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
-from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+# from django.template import RequestContext
 
 
-def index(requst):
-    return HttpResponse('home')
+from .tokens import account_activation_token
+from .forms import SignupForm
 
 
 
-def signup(request):
+def index(request):
+    return HttpResponse('WELCOME')
+        
+
+
+def sign_in(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponse('SUCCES')
+        else:
+            return render(
+                request, 'sign_in.html', 
+                )
+    return render(
+                request, 'sign_in.html', 
+                )
+
+
+def sign_up(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -39,7 +60,7 @@ def signup(request):
             return HttpResponse('Please confirm your email address to complete the registration')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'sign_up.html', {'form': form})
 
 
 def activate(request, uidb64, token):
