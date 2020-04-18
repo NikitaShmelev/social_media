@@ -19,22 +19,23 @@ def index(request):
     return HttpResponse('WELCOME')
         
 
+def profile(request):
+    return HttpResponse('profile')
+
 
 def sign_in(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponse('SUCCES')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+            return render(request, 'sign_in.html')
         else:
-            return render(
-                request, 'sign_in.html', 
-                )
-    return render(
-                request, 'sign_in.html', 
-                )
+            return HttpResponseRedirect('../../home')
+    else:
+        return HttpResponseRedirect('../../home')
 
 
 def sign_up(request):
@@ -77,3 +78,9 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+# def logout(request):
+#     logout(request)
+#     return HttpResponse('asd')
+

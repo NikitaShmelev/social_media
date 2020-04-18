@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+</head>
+<body>
+  {% if not request.user.is_authenticated %}
+
+
+  <a href="{% url 'sign_in'%}">sign in</a>
+
+
+
+{% else %}
+    <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+    <!-- <form action="{% url 'logout' %}" method='POST'>
+                        
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+    user_logged_in -->
+    {% endif %}
+</body>
+</html>
