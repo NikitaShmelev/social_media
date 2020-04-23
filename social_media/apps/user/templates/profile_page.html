@@ -4,9 +4,41 @@
 {% block title %}
 
     {{ user.username }}
-
+    
 {% endblock %}
 
+{% block page_info %}
+    {% if profile.profile_id == request.user.id %}
+        <form action="{% url 'user:edit_profile' profile.profile_id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="row">
+        <div class="col-25">
+        <label for="fname"></label>
+        </div>
+        <div class="col-75">
+        <input type="file" name='profile_img' accept=".jpg,.png">
+        
+        </div>
+        </div>
+
+
+        <div class="row">
+        <div class="col-25" id='bio'>
+        <label class='bio'>Change bio</label>
+        </div>
+        <div class="col-75" id='for_textarea'>
+        <textarea  name="bio" placeholder="Write something.." >{{profile.bio}}</textarea>
+            
+        </div>
+        </div>
+
+        <div class="row" >
+
+        <input type="submit" value="Edit">
+        </div>
+        </form>
+    {% endif %}
+{% endblock %}
     
 
 

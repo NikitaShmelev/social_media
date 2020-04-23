@@ -9,7 +9,10 @@ class UserProfile(models.Model):
         verbose_name='User ID',
     )
     bio = models.TextField(max_length=1000, blank=True)
-    avatar = models.TextField(blank = True)
+    avatar = models.ImageField(
+        upload_to='profile_image',
+        blank=True,
+    )
 
     def __str__(self):
             return self.user.email

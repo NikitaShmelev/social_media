@@ -7,9 +7,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from django.contrib.auth import get_user_model
+from django.utils.datastructures import MultiValueDictKeyError
+from django.conf import settings
 
-# from django.template import RequestContext
+from os import path
 
 from .models import UserProfile
 
@@ -83,20 +84,34 @@ def activate(request, uidb64, token):
         )
         profile.save_base()
         login(request, user)
-        # return redirect('home')
         HttpResponseRedirect(f'../../user/profile/{user.id}')
     else:
         return HttpResponse('Activation link is invalid!')
 
+
 def show_profile(request, profile_id):
     try:
-        user = User.objects.get(id=profile_id)
+        profile = UserProfile.objects.get(profile_id=profile_id)
     except:
-        # return HttpResponse('Page not found(')
         raise Http404('Page not found(')
 
-    return render(request, 'profile_page.html', {'profile_id': profile_id})
+    return render(request, 'profile_page.html', {
+        'profile': profile,
+        })
 
 
-def edit_profile(request):
+def edit_profile(request, profile_id):
+    if request.method == 'POST':
+        try:
+            avatar = request.FILES['profile_img']
+            path_to_save = f'{settings.MEDIA_ROOT}/profile_image/{avatar}'
+            with open(path_to_save, 'wb+') as f:
+                for chunk in avatar.chunks():
+                    f.write(chunk)
+        except MultiValueDictKeyError:
+            path_to_save = ''
+        UserProfile.objects.filter(profile_id=profile_id).update(
+            bio=request.POST['bio'],
+            avatar=f'profile_image/{avatar}',
+            )
     return HttpResponse('EDIT')

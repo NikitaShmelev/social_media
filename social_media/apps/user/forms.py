@@ -26,12 +26,9 @@ class SignupForm(UserCreationForm):
 
 class ProfileForm(forms.ModelForm):
 
-    email = forms.EmailField(max_length=200)
-
-    username = forms.Textarea()
     bio = forms.Textarea()
-    avatar = forms.Textarea()
+    avatar = forms.ImageField()
 
     class Meta:
         model = UserProfile
-        fields = ('email', 'bio', 'avatar', 'profile_id')
+        fields = ('bio', 'avatar')
