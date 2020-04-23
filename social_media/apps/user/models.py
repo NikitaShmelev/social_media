@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 class UserProfile(models.Model):
 
@@ -11,6 +11,7 @@ class UserProfile(models.Model):
     first_name = models.TextField(max_length=100, blank=True)
     second_name = models.TextField(max_length=100, blank=True)
     bio = models.TextField(max_length=10000, blank=True)
+    birth_date = models.DateField(blank=True,null=True)
     avatar = models.ImageField(
         upload_to='profile_image',
         blank=True,

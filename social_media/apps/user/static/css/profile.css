@@ -5,16 +5,27 @@
     float: right;
     margin-top: 12vh;
     margin-right: 1%;
-
 }
-/* div{
+
+.friend_list{
+  min-height: 40vh;
+  margin-top: 12vh;
+  float: left;
+  width: 25%;
+  margin-left: 1%;
+  
+  background-color: #f2f2f2;
+}
+.title{
+  text-align: center;
   border: 1px solid green;
-} */
+}
+.list{
+  border: 1px solid red;
+}
 .profile_image{
     width: 100%;
     height: 60vh;
-    /* padding: 12px; */
-    /* box-sizing: border-box; */
     resize: vertical;
     float: right;
     margin-bottom: 10px;
@@ -141,4 +152,43 @@ input[type=submit], input[type=button] {
     width: 100%;
     margin-top: 0;
   }
+}
+
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button { 
+  display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  color: black;
+  width: 150px;
+  height: 25px;
+  padding-left: 10px;
+  border-style: hidden;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  font-family: "Helvetica", arial, sans-serif;
+  font-size: 18px;
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+input[type="date"], focus {
+  color: #95a5a6;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }

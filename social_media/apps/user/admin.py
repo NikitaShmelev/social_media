@@ -9,11 +9,9 @@ from .forms import ProfileForm
 @admin.register(UserProfile)
 class ProfilekAdmin(admin.ModelAdmin):
     list_display = (
-        'profile_id',
-        'user',
-        'first_name',
-        'second_name',
-        'bio',
+        'profile_id', 'user',
+        'first_name', 'second_name',
+        'birth_date', 'bio',
         'avatar',
         )
     form = ProfileForm

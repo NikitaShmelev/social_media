@@ -111,6 +111,7 @@ def edit_profile(request, profile_id):
             UserProfile.objects.filter(profile_id=profile_id).update(
                 first_name=request.POST['first_name'],
                 second_name=request.POST['second_name'],
+                birth_date=request.POST['birth_date'],
                 bio=request.POST['bio'],
                 avatar=f'profile_image/{avatar}',
             )
@@ -120,4 +121,4 @@ def edit_profile(request, profile_id):
                 second_name=request.POST['second_name'],
                 bio=request.POST['bio'],
                 )
-    return HttpResponse('EDIT')
+    return HttpResponseRedirect(f'../../profile/{profile_id}')
