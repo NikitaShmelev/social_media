@@ -108,10 +108,16 @@ def edit_profile(request, profile_id):
             with open(path_to_save, 'wb+') as f:
                 for chunk in avatar.chunks():
                     f.write(chunk)
-        except MultiValueDictKeyError:
-            path_to_save = ''
-        UserProfile.objects.filter(profile_id=profile_id).update(
-            bio=request.POST['bio'],
-            avatar=f'profile_image/{avatar}',
+            UserProfile.objects.filter(profile_id=profile_id).update(
+                first_name=request.POST['first_name'],
+                second_name=request.POST['second_name'],
+                bio=request.POST['bio'],
+                avatar=f'profile_image/{avatar}',
             )
+        except MultiValueDictKeyError:
+            UserProfile.objects.filter(profile_id=profile_id).update(
+                first_name=request.POST['first_name'],
+                second_name=request.POST['second_name'],
+                bio=request.POST['bio'],
+                )
     return HttpResponse('EDIT')

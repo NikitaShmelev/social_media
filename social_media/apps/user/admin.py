@@ -11,6 +11,8 @@ class ProfilekAdmin(admin.ModelAdmin):
     list_display = (
         'profile_id',
         'user',
+        'first_name',
+        'second_name',
         'bio',
         'avatar',
         )

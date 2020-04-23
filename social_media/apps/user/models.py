@@ -8,7 +8,9 @@ class UserProfile(models.Model):
     profile_id = models.PositiveIntegerField(
         verbose_name='User ID',
     )
-    bio = models.TextField(max_length=1000, blank=True)
+    first_name = models.TextField(max_length=100, blank=True)
+    second_name = models.TextField(max_length=100, blank=True)
+    bio = models.TextField(max_length=10000, blank=True)
     avatar = models.ImageField(
         upload_to='profile_image',
         blank=True,

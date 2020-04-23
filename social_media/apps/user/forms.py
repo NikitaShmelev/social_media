@@ -27,8 +27,10 @@ class SignupForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
 
     bio = forms.Textarea()
+    first_name = forms.TextInput()
+    second_name = forms.TextInput()
     avatar = forms.ImageField()
 
     class Meta:
         model = UserProfile
-        fields = ('bio', 'avatar')
+        fields = ('first_name', 'second_name','bio', 'avatar')

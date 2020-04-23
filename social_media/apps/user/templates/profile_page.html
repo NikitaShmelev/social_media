@@ -11,32 +11,73 @@
     {% if profile.profile_id == request.user.id %}
         <form action="{% url 'user:edit_profile' profile.profile_id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-        <div class="row">
-        <div class="col-25">
-        <label for="fname"></label>
-        </div>
-        <div class="col-75">
-        <input type="file" name='profile_img' accept=".jpg,.png">
         
-        </div>
-        </div>
-
-
         <div class="row">
-        <div class="col-25" id='bio'>
-        <label class='bio'>Change bio</label>
+            <div class="col-75" style="width: 70%;">
+                <div class="col-75">
+                    <label class='bio'>First name</label>
+                    <input type="text" placeholder="{{profile.first_name}}" 
+                    value="{{profile.first_name}}" name='first_name'
+                    style="margin-left: 16px;">
+                </div>
+                <div class="col-75">
+                    <label class='bio'>Second name</label>
+                    <input type="text" placeholder="{{profile.second_name}}" 
+                    value="{{profile.second_name}}" name='second_name'>
+                </div>
+                
+                
+                <div class="col-75" style="width: 100%;">
+                   
+                    <label class='bio' style="float: left;">Change bio</label>
+                          
+                    <textarea  name="bio" placeholder="Write something.." >{{profile.bio}}</textarea>
+                </div>
+            </div>
+            <div class="col-25">
+                <div class="profile_image">
+                    <img src="{{ profile.avatar.url }}" class="avatar" >
+                  </div>
+                <input type="file" id="selectedFile" style="display: none;" accept=".jpg,.png" name='profile_img' />
+                <input type="button" value="Change avatar" onclick="document.getElementById('selectedFile').click();" />
+            </div>
         </div>
-        <div class="col-75" id='for_textarea'>
-        <textarea  name="bio" placeholder="Write something.." >{{profile.bio}}</textarea>
-            
-        </div>
-        </div>
-
-        <div class="row" >
-
-        <input type="submit" value="Edit">
+        <div class="row">
+            <input type="submit" value="Update profile" style="float: right;">
         </div>
         </form>
+    {% else %}
+    <div class="row">
+        <div class="col-75" style="width: 70%;">
+            <div class="col-75">
+                <label class='bio' style="float: left;">First name</label>
+                <div class="name">
+                    {{profile.first_name}}
+                </div>
+            </div>
+            <div class="col-75">
+                <label class='bio' style="float: left;">Second name</label>
+                <div class="name" style="margin-left: 0px;">
+                    {{profile.second_name}}
+                </div>
+            </div>
+            
+            <div class="col-75" style="width: 100%;">
+                <label class='bio' style="float: left;">Bio</label>
+                <div id="bio">
+                    {{profile.bio}}
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-25">
+            <div class="profile_image">
+                <img src="{{ profile.avatar.url }}" class="avatar" >
+              </div>
+            
+        </div>
+    </div>
+
     {% endif %}
 {% endblock %}
     

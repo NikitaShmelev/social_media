@@ -28,40 +28,24 @@
 
 
       <div class="container">
-        
-        <div class="row">
-         
+
+        <!-- <div class="row" id='profile_image'>
           <div class="profile_image">
             <img src="{{ profile.avatar.url }}" class="avatar" >
           </div>
-        </div>
+        </div> -->
+        
             {% block page_info %}
             {% endblock %}
-           
-        <!-- <form action="{% url 'user:edit_profile' profile.profile_id %}" method='POST' enctype="multipart/form-data">
 
-          {% csrf_token %}
-          
-              <div class="file-field">
-                  <p>Drag your files here or click in this area.</p>
-                  <input type="file" name="sentFile" />
-              </div>
-          
-          
-          </div>
-          
-      <center>
-          <button type="submit" class="btn-primary">Sort</button>
-      </center>
-      </form> -->
+
+
+
       </div>
 
 
         
-                  
-
-                  
-        
+  
         
     </div>
 </body>
