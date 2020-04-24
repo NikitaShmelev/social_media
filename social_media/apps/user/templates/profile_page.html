@@ -85,7 +85,13 @@
             
         </div>
     </div>
-
+        {% if profile.profile_id in check_list %}
+        
+            <a href="{% url 'user:accept_invite' profile.profile_id %}">Accept invite</a>
+        {% else %}
+            <a href="{% url 'user:sent_request' profile.profile_id %}">Add to friends list</a>
+        {% endif %}
+  
     {% endif %}
 {% endblock %}
     

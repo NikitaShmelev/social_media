@@ -1,23 +1,30 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+
 from django.shortcuts import render, redirect
+
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.models import User
+
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template.loader import render_to_string
-from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
 from django.utils.datastructures import MultiValueDictKeyError
+
+from django.template.loader import render_to_string
+
+from django.core.mail import EmailMessage
 from django.conf import settings
 
-from os import path
+from friendship.models import Friend, Follow, Block
+from friendship.models import FriendshipRequest
+
 
 from .models import UserProfile
 
 from .tokens import account_activation_token
 from .forms import SignupForm
 
-
+from os import path
 
 def index(request):
     if not request.user.is_authenticated:
@@ -89,14 +96,24 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-def show_profile(request, profile_id):
+def show_profile(request, profile_id, friend_requests=None, check_list=None, friend_list=None):
     try:
         profile = UserProfile.objects.get(profile_id=profile_id)
+        if not profile.avatar:
+            profile.avatar = 'default_image/default.jpg'
+        if request.user.id == profile_id:
+            friend_requests = FriendshipRequest.objects.filter(to_user=profile_id)
+            # friend_requests = [i['from_user_id'] for i in friend_requests.values()]s
+        else:
+            friend_requests = FriendshipRequest.objects.filter(to_user=request.user.id)
+        check_list = [i['from_user_id'] for i in friend_requests.values()]
+        friend_list = Friend.objects.filter()
     except:
         raise Http404('Page not found(')
-
     return render(request, 'profile_page.html', {
-        'profile': profile,
+                'profile': profile,
+                'friend_requests': friend_requests,
+                'check_list': check_list,
         })
 
 
@@ -122,3 +139,18 @@ def edit_profile(request, profile_id):
                 bio=request.POST['bio'],
                 )
     return HttpResponseRedirect(f'../../profile/{profile_id}')
+
+
+def send_friend_request(request, profile_id):
+    Friend.objects.add_friend(
+        request.user,                               # The sender
+        User.objects.get(id=profile_id),            # The recipient
+        message='Hi! I would like to add you'       # This message is optional
+        )     
+    return HttpResponse('succes')
+
+
+def accept_invite(request, profile_id):
+    friend_request = FriendshipRequest.objects.get(from_user=profile_id)
+    friend_request.accept()
+    return HttpResponse('succes')

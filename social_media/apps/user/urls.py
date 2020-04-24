@@ -13,6 +13,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('logout/', include('django.contrib.auth.urls')),
     path('profile/<int:profile_id>/', views.show_profile, name='show_profile'),
+    path('profile/<int:profile_id>/add_friend', views.send_friend_request, name='sent_request'),
+    path('profile/<int:profile_id>/accept_invite', views.accept_invite, name='accept_invite'),
     path('profile/<int:profile_id>/edit', views.edit_profile, name='edit_profile'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),

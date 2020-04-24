@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'home',
+    'friendship',
+    # 'friends',
 ]
 
 MIDDLEWARE = [

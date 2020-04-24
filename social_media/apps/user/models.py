@@ -4,7 +4,9 @@ from datetime import datetime
 
 class UserProfile(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE
+        )
     profile_id = models.PositiveIntegerField(
         verbose_name='User ID',
     )
