@@ -29,22 +29,36 @@
       </div>       
     </div>
     <div class="friend_list">
-      <div class="title">
-        <label for="title">Title</label>
-      </div>
       <div class="list">
         
-        {% if friend_requests %}
-        <label for="list">Friend requests</label>
-        <ul>
-          {% if profile.profile_id == request.user.id %}
-            {% for user_id in friend_requests %}
-              <li><a  href="{% url 'user:show_profile' user_id %}">view profile</a></li>
-            {% endfor %}
-          {% endif %}
-        </ul>
-        {% endif %}
-        friends
+            {% if friend_requests %}
+              <div class="requests">
+                  <div class="title">
+                    <label for="title">Friend requests</label>
+                  </div>
+                    {% if profile.profile_id == request.user.id %}
+                      <ul>
+                        {% for user_id in friend_requests %}
+                          <li><a  href="{% url 'user:show_profile' user_id %}">view profile</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+              </div>
+            {% endif %}
+        
+            {% if friend_list %}
+              <div class="friends">
+                <div class="title">
+                  <label for="title">Friend list</label>
+                </div>
+                <ul>
+                  
+                  {% for profile in friend_list %}
+                    <li><a  href="{% url 'user:show_profile' profile.user.id %}">{{profile.user.username}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
       </div>
     </div>
 </body>

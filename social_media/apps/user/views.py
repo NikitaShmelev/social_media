@@ -107,13 +107,17 @@ def show_profile(request, profile_id, friend_requests=None, check_list=None, fri
         else:
             friend_requests = FriendshipRequest.objects.filter(to_user=request.user.id)
         check_list = [i['from_user_id'] for i in friend_requests.values()]
-        friend_list = Friend.objects.filter()
+        friend_list = [
+            UserProfile.objects.get(profile_id=i.from_user_id)
+            for i in Friend.objects.filter(to_user=profile_id)
+            ]
     except:
         raise Http404('Page not found(')
     return render(request, 'profile_page.html', {
                 'profile': profile,
                 'friend_requests': friend_requests,
                 'check_list': check_list,
+                'friend_list': friend_list,
         })
 
 

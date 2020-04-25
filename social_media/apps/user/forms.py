@@ -5,7 +5,7 @@ from .models import UserProfile
 
 class SignupForm(UserCreationForm):
 
-    email = forms.EmailField(max_length=200, help_text='Required', 
+    email = forms.EmailField(max_length=50, help_text='Required', 
                             widget=forms.PasswordInput(attrs={
                                 'placeholder':'Email', 
                                 'type':'email'}))
@@ -16,6 +16,7 @@ class SignupForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'placeholder':'Password confirmation'})
         )
     username = forms.CharField(
+        required=True, min_length=4, max_length=30,
         widget=forms.TextInput(attrs={'placeholder':'Username'})
         )
     

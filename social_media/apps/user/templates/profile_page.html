@@ -55,43 +55,43 @@
         </div>
         </form>
     {% else %}
-    <div class="row">
-        <div class="col-75" style="width: 70%;">
-            <div class="col-75">
-                <label class='bio' style="float: left;">First name</label>
-                <div class="name">
-                    {{profile.first_name}}
+        <div class="row">
+            <div class="col-75" style="width: 70%;">
+                <div class="col-75">
+                    <label class='bio' style="float: left;">First name</label>
+                    <div class="name">
+                        {{profile.first_name}}
+                    </div>
                 </div>
-            </div>
-            <div class="col-75">
-                <label class='bio' style="float: left;">Second name</label>
-                <div class="name" style="margin-left: 0px;">
-                    {{profile.second_name}}
+                <div class="col-75">
+                    <label class='bio' style="float: left;">Second name</label>
+                    <div class="name" style="margin-left: 0px;">
+                        {{profile.second_name}}
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-75" style="width: 100%;">
-                <label class='bio' style="float: left;">Bio</label>
-                <div id="bio">
-                    {{profile.bio}}
+                
+                <div class="col-75" style="width: 100%;">
+                    <label class='bio' style="float: left;">Bio</label>
+                    <div id="bio">
+                        {{profile.bio}}
+                    </div>
                 </div>
+                
             </div>
-            
+            <div class="col-25">
+                <div class="profile_image">
+                    <img src="{{ profile.avatar.url }}" class="avatar" >
+                </div>
+                
+            </div>
         </div>
-        <div class="col-25">
-            <div class="profile_image">
-                <img src="{{ profile.avatar.url }}" class="avatar" >
-              </div>
-            
-        </div>
-    </div>
-        {% if profile.profile_id in check_list %}
-        
-            <a href="{% url 'user:accept_invite' profile.profile_id %}">Accept invite</a>
-        {% else %}
-            <a href="{% url 'user:sent_request' profile.profile_id %}">Add to friends list</a>
+        {% if request.user.is_authenticated %}
+            {% if profile.profile_id in check_list %}
+                <a href="{% url 'user:accept_invite' profile.profile_id %}">Accept invite</a>
+            {% else %}
+                <a href="{% url 'user:sent_request' profile.profile_id %}">Add to friends list</a>
+            {% endif %}
         {% endif %}
-  
     {% endif %}
 {% endblock %}
     
