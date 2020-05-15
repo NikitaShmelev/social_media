@@ -24,7 +24,6 @@ from .models import UserProfile
 from .tokens import account_activation_token
 from .forms import SignupForm
 
-from os import path
 
 def index(request):
     if not request.user.is_authenticated:
@@ -97,27 +96,28 @@ def activate(request, uidb64, token):
 
 
 def show_profile(request, profile_id, friend_requests=None, check_list=None, friend_list=None):
-    try:
-        profile = UserProfile.objects.get(profile_id=profile_id)
-        if not profile.avatar:
-            profile.avatar = 'default_image/default.jpg'
-        if request.user.id == profile_id:
-            friend_requests = FriendshipRequest.objects.filter(to_user=profile_id)
-            # friend_requests = [i['from_user_id'] for i in friend_requests.values()]s
-        else:
-            friend_requests = FriendshipRequest.objects.filter(to_user=request.user.id)
-        check_list = [i['from_user_id'] for i in friend_requests.values()]
-        friend_list = [
-            UserProfile.objects.get(profile_id=i.from_user_id)
-            for i in Friend.objects.filter(to_user=profile_id)
-            ]
-    except:
-        raise Http404('Page not found(')
+    # try:
+    profile = UserProfile.objects.get(profile_id=profile_id)
+    if not profile.avatar:
+        profile.avatar = 'default_image/default.jpg'
+    if request.user.id == profile_id:
+        friend_requests = FriendshipRequest.objects.filter(to_user=profile_id)
+    else:
+        friend_requests = FriendshipRequest.objects.filter(to_user=request.user.id)
+    check_list = [i['from_user_id'] for i in friend_requests.values()]
+    friend_list = [
+        UserProfile.objects.get(profile_id=i.from_user_id)
+        for i in Friend.objects.filter(to_user=profile_id)
+        ]
+    friends_id = [i.user.id for i in friend_list]
+    # except:
+    #     raise Http404('Page not found(')
     return render(request, 'profile_page.html', {
                 'profile': profile,
                 'friend_requests': friend_requests,
                 'check_list': check_list,
-                'friend_list': friend_list,
+                'friend_list': friend_list, # profiles
+                'friends_id': friends_id,
         })
 
 
@@ -125,14 +125,15 @@ def edit_profile(request, profile_id):
     if request.method == 'POST':
         try:
             avatar = request.FILES['profile_img']
-            path_to_save = f'{settings.MEDIA_ROOT}/profile_image/{avatar}'
+            path_to_save = f'{settings.MEDIA_ROOT}profile_image/{avatar}'
             with open(path_to_save, 'wb+') as f:
                 for chunk in avatar.chunks():
                     f.write(chunk)
+            print(path_to_save)
             UserProfile.objects.filter(profile_id=profile_id).update(
                 first_name=request.POST['first_name'],
                 second_name=request.POST['second_name'],
-                birth_date=request.POST['birth_date'],
+                # birth_date=request.POST['birth_date'],
                 bio=request.POST['bio'],
                 avatar=f'profile_image/{avatar}',
             )

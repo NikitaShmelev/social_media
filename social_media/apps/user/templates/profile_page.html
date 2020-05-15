@@ -30,7 +30,7 @@
                     <label class='bio'>Birthday</label>
                     <input type="date" placeholder="{{profile.birth_date}}" style="margin-left: 30px;" 
                     name='birth_date' min="1900-08-15"
-                    value="{{profile.birth_date.year}}-01-{{profile.birth_date.day}}">
+                    value="2001-02-13">
                 </div> -->
                 <!-- {{profile.birth_date}} -->
                 
@@ -39,7 +39,7 @@
                    
                     <label class='bio' style="float: left;">Change bio</label>
                           
-                    <textarea  name="bio" placeholder="Write something.." >{{profile.bio}}</textarea>
+                    <textarea  name="bio" placeholder="Write something..">{{profile.bio}}</textarea>
                 </div>
             </div>
             <div class="col-25">
@@ -89,7 +89,9 @@
             {% if profile.profile_id in check_list %}
                 <a href="{% url 'user:accept_invite' profile.profile_id %}">Accept invite</a>
             {% else %}
-                <a href="{% url 'user:sent_request' profile.profile_id %}">Add to friends list</a>
+                {% if request.user.id not in friends_id %}
+                    <a href="{% url 'user:sent_request' profile.profile_id %}">Add to friends list</a>
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endif %}

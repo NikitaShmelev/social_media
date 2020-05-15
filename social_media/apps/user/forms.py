@@ -31,11 +31,12 @@ class ProfileForm(forms.ModelForm):
     first_name = forms.TextInput()
     second_name = forms.TextInput()
     avatar = forms.ImageField()
-    birth_date = forms.DateField()
+    # birth_date = forms.DateField()
 
     class Meta:
         model = UserProfile
         fields = (
             'first_name', 'second_name', 
-            'birth_date','bio', 'avatar',
+            # 'birth_date',
+            'bio', 'avatar',
             )

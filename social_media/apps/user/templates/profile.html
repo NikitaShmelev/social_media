@@ -6,11 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    
     <title>{% block title %} Profile page {% endblock %}</title>
 </head>
 <body>
     <div class="header">
         <a href="" class="logo"> {% block page_name %}Home page{% endblock %}</a>
+
+        <div class="search">
+          <form class="form">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+
         <div class="header-right">
             <a href="../../">Home</a>
           {% if request.user.is_authenticated %}
@@ -22,6 +31,7 @@
           {% endif %}
         </div>
       </div>
+    
     <div class="profile_content">
       <div class="container">
             {% block page_info %}
@@ -52,9 +62,15 @@
                   <label for="title">Friend list</label>
                 </div>
                 <ul>
-                  
                   {% for profile in friend_list %}
-                    <li><a  href="{% url 'user:show_profile' profile.user.id %}">{{profile.user.username}}</a></li>
+                    <li><a  href="{% url 'user:show_profile' profile.user.id %}">
+                      {% if profile.first_name and profile.second_name %}
+                      {{profile.first_name}} {{profile.second_name}}
+                      {% else %}
+                      {{profile.user.email}}
+                      {% endif %}
+                    </a>
+                  </li>
                   {% endfor %}
                 </ul>
               </div>

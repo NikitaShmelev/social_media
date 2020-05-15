@@ -1,48 +1,64 @@
 .header {
     position: fixed;
     left: 0;
+    right: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     top: 0;
-    width: 100%;
+    margin: 0 auto;
+    width: 96%;
     overflow: hidden;
-    background-color: #f1f1f1;
+    background-color: #24292e;
     padding: 20px 10px;
+    
   }
-  
+
+  div.search{
+    color: red;
+    height: 10vh;
+    width: 10vh;
+    background-color: green;
+  }
   /* Style the header links */
   .header a {
     float: left;
-    margin-right: 2vh;
-    color: black;
+    margin-right: 1vh;
+    color:	#f2f2f2;
     text-align: center;
     padding: 12px;
     text-decoration: none;
     font-size: 18px;
     line-height: 25px;
     border-radius: 4px;
+    font-size: x-large;
+
   }
-  
+
   /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
   .header a.logo {
     font-size: 25px;
     font-weight: bold;
+    margin-left: 1vh;
   }
   
   /* Change the background color on mouse-over */
   .header a:hover {
-    background-color: #ddd;
+    background-color: #ffa31a;
     color: black;
+    font-size: x-large;
+    
   }
   
   /* Style the active/current link*/
   .header a.active {
-    background-color: dodgerblue;
-    color: white;
+    background-color: #ffa31a;
+    color: black;
   }
   
   /* Float the link section to the right */
   .header-right {
     float: right;
-    margin-right: 4vh;
+    /* margin-right: 1vh; */
   }
   
   /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */

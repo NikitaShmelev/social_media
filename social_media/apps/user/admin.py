@@ -11,7 +11,7 @@ class ProfilekAdmin(admin.ModelAdmin):
     list_display = (
         'profile_id', 'user',
         'first_name', 'second_name',
-        'birth_date', 'bio',
+        'bio',
         'avatar',
         )
     form = ProfileForm
