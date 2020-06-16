@@ -90,7 +90,7 @@ def activate(request, uidb64, token):
         )
         profile.save_base()
         login(request, user)
-        HttpResponseRedirect(f'../../user/profile/{user.id}')
+        return HttpResponseRedirect(f'../../user/profile/{user.id}')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -158,4 +158,4 @@ def send_friend_request(request, profile_id):
 def accept_invite(request, profile_id):
     friend_request = FriendshipRequest.objects.get(from_user=profile_id)
     friend_request.accept()
-    return HttpResponse('succes')
+    return HttpResponse('success')

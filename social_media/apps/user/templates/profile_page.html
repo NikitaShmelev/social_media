@@ -13,35 +13,6 @@
             {% csrf_token %}
         
         <div class="row">
-            <div class="col-75" style="width: 70%;">
-                <div class="col-75">
-                    <label class='bio'>First name</label>
-                    <input type="text" placeholder="{{profile.first_name}}" 
-                    value="{{profile.first_name}}" name='first_name'
-                    style="margin-left: 16px;">
-                </div>
-                <div class="col-75">
-                    <label class='bio'>Second name</label>
-                    <input type="text" placeholder="{{profile.second_name}}" 
-                    value="{{profile.second_name}}" name='second_name'>
-                </div>
-                
-                <!-- <div class="col-75">
-                    <label class='bio'>Birthday</label>
-                    <input type="date" placeholder="{{profile.birth_date}}" style="margin-left: 30px;" 
-                    name='birth_date' min="1900-08-15"
-                    value="2001-02-13">
-                </div> -->
-                <!-- {{profile.birth_date}} -->
-                
-                <!-- {{ profile.birth_date.month }} -->
-                <div class="col-75" style="width: 100%;">
-                   
-                    <label class='bio' style="float: left;">Change bio</label>
-                          
-                    <textarea  name="bio" placeholder="Write something..">{{profile.bio}}</textarea>
-                </div>
-            </div>
             <div class="col-25">
                 <div class="profile_image">
                     <img src="{{ profile.avatar.url }}" class="avatar" >
@@ -49,6 +20,27 @@
                 <input type="file" id="selectedFile" style="display: none;" accept=".jpg,.png" name='profile_img' />
                 <input type="button" value="Change avatar" onclick="document.getElementById('selectedFile').click();" />
             </div>
+            <div class="col-75">
+                <div class="col-75">
+                    <label class='bio'>First name: </label>
+                    <input type="text" placeholder="{{profile.first_name}}" 
+                    value="{{profile.first_name}}" name='first_name'
+                    style="margin-left: 16px;">
+                </div>
+                <div class="col-75">
+                    <label class='bio'>Second name:</label>
+                    <input type="text" placeholder="{{profile.second_name}}" 
+                    value="{{profile.second_name}}" name='second_name'>
+                </div>
+                
+                
+                <div class="col-75" >
+                    <label id='bio'>Bio:</label>
+                          
+                    <textarea  name="bio" placeholder="Write something..">{{profile.bio}}</textarea>
+                </div>
+            </div>
+            
         </div>
         <div class="row">
             <input type="submit" value="Update profile" style="float: right;">
