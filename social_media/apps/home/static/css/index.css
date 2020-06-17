@@ -38,7 +38,7 @@
   .header a.logo {
     font-size: 25px;
     font-weight: bold;
-    margin-left: 1vh;
+    /* margin-left: 1vh; */
   }
   
   /* Change the background color on mouse-over */

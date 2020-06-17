@@ -11,9 +11,6 @@
 </head>
 <body>
     <div class="header">
-        <a href="" class="logo"> {% block page_name %}Home page{% endblock %}</a>
-
-       
         <div class="header-right">
             <a href="../../">Home</a>
           {% if request.user.is_authenticated %}
@@ -32,6 +29,10 @@
             {% endblock %}
       </div>       
     </div>
+
+
+
+
     <!-- <div class="friend_list">
         <div class="list">
           
