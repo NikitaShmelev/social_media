@@ -19,7 +19,7 @@
                   </div>
                 <div class='upload_img'>
                     <input type="file" id="selectedFile" style="display: none;" accept=".jpg,.png" name='profile_img' />
-                    <input type="button" id="selectedFile" value="Change avatar" onclick="document.getElementById('selectedFile').click();" />
+                    <input type="button" value="Change avatar" onclick="document.getElementById('selectedFile').click();" />
                 </div>
             </div>
             <div class="col-75">
@@ -53,38 +53,43 @@
             
         </div>
         <div class="row">
-            <input type="submit" value="Update profile" style="float: right;">
+            <input type="submit" value="Update profile" >
         </div>
         </form>
     {% else %}
         <div class="row">
-            <div class="col-75" style="width: 70%;">
-                <div class="col-75">
-                    <label class='bio' style="float: left;">First name</label>
-                    <div class="name">
-                        {{profile.first_name}}
-                    </div>
-                </div>
-                <div class="col-75">
-                    <label class='bio' style="float: left;">Second name</label>
-                    <div class="name" style="margin-left: 0px;">
-                        {{profile.second_name}}
-                    </div>
-                </div>
-                
-                <div class="col-75" style="width: 100%;">
-                    <label class='bio' style="float: left;">Bio</label>
-                    <div id="bio">
-                        {{profile.bio}}
-                    </div>
-                </div>
-                
-            </div>
             <div class="col-25">
                 <div class="profile_image">
                     <img src="{{ profile.avatar.url }}" class="avatar" >
+                  </div>
+            </div>
+            <div class="col-75">
+                <div class="col-75">
+                    <label class='bio'>First name: </label>
+                    <input type="text" placeholder="{{profile.first_name}}" 
+                    value="{{profile.first_name}}" name='first_name'
+                    style="margin-left: 16px;" disabled >
+                </div>
+                <div class="col-75">
+                    <label class='bio'>Second name:</label>
+                    <input type="text" placeholder="{{profile.second_name}}" 
+                    value="{{profile.second_name}}" name='second_name' disabled>
+                </div>
+                <div class="col-75">
+                    <label class='bio'>Some shit</label>
+                    <input type="text" placeholder="{{profile.second_name}}" 
+                    value="Some_shit" name='Some_shit' disabled>
+                </div>
+                <div class="col-75">
+                    <label class='bio'>Some shit</label>
+                    <input type="text" placeholder="{{profile.second_name}}" 
+                    value="Some_shit" name='Some_shit' disabled>
                 </div>
                 
+                <div class="col-75" >
+                    <label id='bio'>Bio:</label>
+                    <textarea  name="bio" placeholder="Write something.." disabled>{{profile.bio}}</textarea>
+                </div>
             </div>
         </div>
         {% if request.user.is_authenticated %}

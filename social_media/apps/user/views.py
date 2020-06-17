@@ -110,8 +110,6 @@ def show_profile(request, profile_id, friend_requests=None, check_list=None, fri
         for i in Friend.objects.filter(to_user=profile_id)
         ]
     friends_id = [i.user.id for i in friend_list]
-    # except:
-    #     raise Http404('Page not found(')
     return render(request, 'profile_page.html', {
                 'profile': profile,
                 'friend_requests': friend_requests,
@@ -129,7 +127,6 @@ def edit_profile(request, profile_id):
             with open(path_to_save, 'wb+') as f:
                 for chunk in avatar.chunks():
                     f.write(chunk)
-            print(path_to_save)
             UserProfile.objects.filter(profile_id=profile_id).update(
                 first_name=request.POST['first_name'],
                 second_name=request.POST['second_name'],
